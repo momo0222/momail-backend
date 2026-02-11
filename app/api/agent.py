@@ -10,11 +10,11 @@ import re
 
 from datetime import datetime, timedelta
 
-from app.services.gmail_client import GmailClient
+from app.services.gmail_provider import get_gmail_client
 from typing import List
 
 router = APIRouter()
-gmail_client = GmailClient()
+gmail_client = get_gmail_client()
 
 @router.get("/stats", response_model=AgentStats)
 def get_status(db: Session=Depends(get_db)):
