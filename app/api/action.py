@@ -7,10 +7,10 @@ from app.database import get_db
 from app.models.action import Action
 from app.models.email import Email
 from app.schemas.action import ActionResponse, ActionCreate, ActionApprove, GenerateReplyRequest, GenerateReplyResponse
-from app.services.gmail_client import GmailClient
+from app.services.gmail_provider import get_gmail_client
 
 router = APIRouter()
-gmail_client = GmailClient()
+gmail_client = get_gmail_client()
 
 @router.get("/pending", response_model=List[ActionResponse])
 def get_pending_actions(db: Session = Depends(get_db)):
