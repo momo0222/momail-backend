@@ -5,7 +5,7 @@ from datetime import datetime
 
 from app.database import get_db
 from app.models import Email, Action
-from app.services.gmail_client import GmailClient
+from app.services.gmail_provider import get_gmail_client
 from app.schemas.bulk import (
     MarkReadRequest,
     BulkDeleteRequest,
@@ -16,7 +16,7 @@ from app.schemas.bulk import (
 
 router = APIRouter()
 
-gmail_client = GmailClient()
+gmail_client = get_gmail_client()
 
 @router.post("/emails/mark-read")
 def mark_emails_as_read(

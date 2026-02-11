@@ -137,3 +137,30 @@ class DemoGmailClient:
         }
         self.sent.append(msg)
         return msg
+    @property
+    def service(self):
+        """
+        Optional: stub service to avoid crashes when code uses
+        gmail_client.service.users().messages()...
+        """
+        class _Service:
+            class _Users:
+                class _Messages:
+                    def trash(self, userId, id):
+                        print(f"[DEMO] trash({id})")
+                        return self
+
+                    def modify(self, userId, id, body):
+                        print(f"[DEMO] modify({id}, {body})")
+                        return self
+
+                    def execute(self):
+                        return None
+
+                def messages(self):
+                    return self._Messages()
+
+            def users(self):
+                return self._Users()
+
+        return _Service()
